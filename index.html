@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <title>RTX_aka — Video Studio</title>
+  <style>
+    :root {
+      --bg:#080b12; --panel:#111826; --panel2:#151f2d;
+      --text:#f3f7fc; --muted:#a0aec0; --green:#9aff00;
+      --cyan:#47e5ff; --line:rgba(255,255,255,.1);
+    }
+    * { box-sizing:border-box }
+    body {
+      margin:0; min-height:100vh; color:var(--text);
+      font-family:Tahoma,Arial,sans-serif;
+      background:
+        radial-gradient(ellipse at 80% 0%,rgba(135,255,0,.13),transparent 32%),
+        radial-gradient(ellipse at 5% 40%,rgba(40,180,255,.1),transparent 35%),
+        var(--bg);
+    }
+    .wrap { width:min(1080px,92%); margin:auto }
+    header { display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line) }
+    .brand { font-size:23px;font-weight:900;letter-spacing:1px }
+    .brand span,.green { color:var(--green) }
+    .badge { color:var(--green);border:1px solid #9aff0055;border-radius:30px;padding:8px 13px;font-size:11px }
+    .hero { text-align:center;padding:55px 0 35px }
+    h1 { font-size:clamp(34px,6vw,60px);margin:0 0 14px }
+    h1 span { color:var(--green);text-shadow:0 0 25px #9aff0050 }
+    .muted { color:var(--muted);font-size:13px;line-height:1.9 }
+    .hero .muted { max-width:650px;margin:auto }
+    .tagline { color:var(--cyan);font-size:13px;margin-top:14px }
+    .grid { display:grid;grid-template-columns:1.35fr .8fr;gap:19px }
+    .card { background:linear-gradient(145deg,#151e2cf5,#0d131ef5);border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 18px 60px #0004 }
+    h2 { font-size:19px;margin:0 0 7px }
+    .drop { display:block;text-align:center;margin-top:18px;padding:29px 12px;border:1px dashed #9aff0077;border-radius:15px;background:#9aff0008;cursor:pointer }
+    .drop:hover { background:#9aff0014 }
+    .upload { display:block;font-size:32px;margin-bottom:8px;color:var(--green) }
+    input[type=file] { display:none }
+    .file-list { display:grid;gap:8px;margin-top:13px }
+    .file { display:flex;justify-content:space-between;gap:10px;padding:11px;border:1px solid var(--line);border-radius:11px;color:var(--muted);font-size:12px;overflow-wrap:anywhere }
+    .file strong { color:var(--text) }
+    .settings { display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px }
+    .setting { padding:12px;border:1px solid var(--line);border-radius:11px;background:#ffffff05 }
+    .setting small { display:block;color:var(--muted);margin-bottom:7px }
+    select,input[type=text] { width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);font:inherit }
+    button { font:inherit;font-weight:800;border:0;border-radius:10px;padding:12px 15px;cursor:pointer }
+    .primary { width:100%;margin-top:15px;background:linear-gradient(90deg,var(--green),#d0ff78);color:#101508 }
+    .secondary { width:100%;color:#101508;background:var(--green);margin-top:8px }
+    .disabled { width:100%;background:#222d3a;color:#aeb8c5;cursor:not-allowed }
+    .price { font-size:27px;font-weight:900;margin:13px 0 }
+    .price small { font-size:13px;color:var(--muted);font-weight:400 }
+    ul { padding:0;list-style:none;line-height:2.2;font-size:14px }
+    li::before { content:"✓";color:var(--green);margin-left:9px;font-weight:bold }
+    .note { border-right:3px solid var(--cyan);padding:10px 12px;background:#47e5ff09;border-radius:7px;color:var(--muted);font-size:12px;line-height:1.8;margin-top:14px }
+    .status { min-height:23px;margin-top:10px;color:var(--cyan);font-size:13px;line-height:1.8 }
+    .admin-link { background:none;color:var(--muted);font-size:12px;padding:8px }
+    footer { text-align:center;color:var(--muted);padding:29px 0;font-size:12px }
+    footer strong { color:var(--green) }
+    dialog { width:min(450px,92%);border:1px solid var(--line);border-radius:18px;background:#101723;color:var(--text);padding:22px;box-shadow:0 25px 100px #000a }
+    dialog::backdrop { background:#000b;backdrop-filter:blur(5px) }
+    dialog h2 { margin-bottom:12px }
+    .modal-actions { display:flex;gap:9px;margin-top:12px }
+    .modal-actions button { flex:1 }
+    .close { background:#273342;color:white }
+    @media(max-width:760px) { .grid{grid-template-columns:1fr}.hero{padding-top:40px}.card{padding:18px} }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="brand">RTX<span>_aka</span></div>
+    <div class="badge">VIDEO STUDIO · BETA</div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>ڤیدیۆکەت ببە بۆ <span>ئاستێکی تر</span></h1>
+      <p class="muted">ڕێکخستنەکانی ڤیدیۆکەت دیاری بکە و بۆ کوالیتییەکی بەرز ئامادەی بکە.</p>
+      <div class="tagline">⚡ Made for creators · Designed by Akar</div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>بارکردنی ڤیدیۆ</h2>
+        <div class="muted">بەشی بەلاش: تا ١٠ ڤیدیۆ، هەر یەکێک تا ٣٠٠MB</div>
+
+        <label class="drop" for="videos">
+          <span class="upload">⇧</span>
+          <strong>کلیک بکە و ڤیدیۆکەت هەڵبژێرە</strong>
+          <div class="muted">فایلی ڤیدیۆ — MP4، MOV، WebM</div>
+        </label>
+        <input id="videos" type="file" accept="video/*" multiple>
+
+        <div class="settings">
+          <div class="setting">
+            <small>ئامانجی کوالیتی</small>
+            <select id="quality">
+              <option>4K · 2160p</option><option>1440p</option><option>1080p</option>
+            </select>
+          </div>
+          <div class="setting">
+            <small>فریم لە چرکەیەکدا</small>
+            <select id="fps">
+              <option>120 FPS</option><option>60 FPS</option><option>30 FPS</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="files" class="file-list"></div>
+        <button class="primary" id="check">پشکنینی ڤیدیۆکان</button>
+        <div id="status" class="status"></div>
+        <div class="note">تێبینی: ئەم وەشانە تەنها ڕووکار و پشکنینی فایلە؛ فایلەکە گۆڕانکارییەکی ڕاستەقینەی تێدا ناکرێت تا مۆتۆڕی پرۆسێسکردن زیاد بکرێت.</div>
+      </div>
+
+      <aside class="card">
+        <h2>پاکێجی تایبەتی Akar</h2>
+        <div class="muted">تەنها ئەم پاکێجە بەردەستە</div>
+        <div class="price">٥,٠٠٠ <small>دیناری عێراقی</small></div>
+        <ul>
+          <li>تا ٢٠ ڤیدیۆ</li>
+          <li>هەر ڤیدیۆیەک تا ٧٠٠MB</li>
+          <li>هەڵبژاردنی ئامانجی 4K و 120 FPS</li>
+          <li>داواکاری پاکێج لە ڕێگەی WhatsApp</li>
+        </ul>
+        <button class="secondary" id="buy">داواکردنی پاکێج / پەیوەندی</button>
+        <button class="disabled" disabled>پاکێجەکانی تر بەردەست نین</button>
+        <div class="note">ئەم دوگمەیە داواکارییەکەت بۆ WhatsApp دەنێرێت؛ پارە بە شێوەی ئۆنلاین وەرناگیرێت تا سیستەمی پارەدان زیاد بکرێت.</div>
+      </aside>
+    </section>
+
+    <div style="text-align:center;margin-top:18px">
+      <button class="admin-link" id="adminOpen">بەشی ئەدمین</button>
+    </div>
+  </main>
+
+  <footer>© RTX_aka — <strong>Made By Akar</strong></footer>
+
+  <dialog id="adminDialog">
+    <h2>چوونەژوورەوەی ئەدمین</h2>
+    <p class="muted">کۆدی ئەدمین بنووسە.</p>
+    <input id="adminCode" type="text" placeholder="کۆدی ئەدمین" autocomplete="off">
+    <div id="adminStatus" class="status"></div>
+    <div id="adminPanel" hidden>
+      <div class="note">چوویتە ناو ڕووکاری نموونەیی ئەدمین. ئەم بەشە بە backend پارێزراو نییە و توانای بەڕێوەبردنی پارەدان یان داواکارییەکانی کڕیار نییە.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="primary" id="adminLogin">چوونەژوورەوە</button>
+      <button class="close" data-close="adminDialog">داخستن</button>
+    </div>
+  </dialog>
+
+  <dialog id="contactDialog">
+    <h2>داواکاری پاکێج</h2>
+    <p class="muted">ناوت بنووسە؛ دوای پەسەندکردن WhatsApp دەکرێتەوە بە نامەی ئامادەکراو.</p>
+    <input id="customerName" type="text" placeholder="ناوت">
+    <div id="contactStatus" class="status"></div>
+    <div class="modal-actions">
+      <button class="primary" id="sendWhatsApp">ناردن بۆ WhatsApp</button>
+      <button class="close" data-close="contactDialog">داخستن</button>
+    </div>
+  </dialog>
+
+  <script>
+    // ژمارەکە بگۆڕە بۆ ژمارەی خۆت: کۆدی وڵات + ژمارە، بەبێ + و بۆشایی.
+    const WHATSAPP_NUMBER = "9647XXXXXXXXX";
+
+    // تەنها بۆ تاقیکردنەوەی ناوخۆییە؛ ئەم کۆدە لە کۆدی گشتیی ماڵپەڕدا دەردەکەوێت.
+    const DEMO_ADMIN_CODE = "Akar-admin";
+
+    const input = document.getElementById("videos");
+    const fileList = document.getElementById("files");
+    const status = document.getElementById("status");
+    let selectedFiles = [];
+
+    input.addEventListener("change", () => {
+      selectedFiles = Array.from(input.files);
+      fileList.replaceChildren();
+      status.textContent = "";
+
+      if (selectedFiles.length > 10) {
+        status.textContent = "سنووری بەلاش ١٠ ڤیدیۆیە؛ ژمارەیەکی کەمتر هەڵبژێرە.";
+        selectedFiles = [];
+        input.value = "";
+        return;
+      }
+
+      for (const file of selectedFiles) {
+        const row = document.createElement("div");
+        row.className = "file";
+        const name = document.createElement("strong");
+        const size = document.createElement("span");
+        name.textContent = file.name;
+        size.textContent = (file.size / 1048576).toFixed(1) + " MB";
+        row.append(name, size);
+        fileList.appendChild(row);
+      }
+
+      if (selectedFiles.some(f => f.size > 300 * 1048576)) {
+        status.textContent = "فایلێک لە سنووری ٣٠٠MBی بەلاش گەورەترە.";
+      } else if (selectedFiles.some(f => !f.type.startsWith("video/"))) {
+        status.textContent = "تکایە تەنها فایلە ڤیدیۆییەکان هەڵبژێرە.";
+      }
+    });
+
+    document.getElementById("check").addEventListener("click", () => {
+      if (!selectedFiles.length) {
+        status.textContent = "سەرەتا ڤیدیۆیەک هەڵبژێرە.";
+        return;
+      }
+      if (selectedFiles.some(f => f.size > 300 * 1048576)) {
+        status.textContent = "فایلێک لە سنووری بەلاش گەورەترە؛ پاکێج داوا بکە.";
+        return;
+      }
+      if (selectedFiles.some(f => !f.type.startsWith("video/"))) {
+        status.textContent = "تکایە تەنها فایلە ڤیدیۆییەکان هەڵبژێرە.";
+        return;
+      }
+      status.textContent = "پشکنینی فایلەکان تەواو بوو؛ گۆڕینی ڤیدیۆ لەم وەشانەدا چالاک نییە.";
+    });
+
+    const adminDialog = document.getElementById("adminDialog");
+    const contactDialog = document.getElementById("contactDialog");
+
+    document.getElementById("adminOpen").addEventListener("click", () => {
+      document.getElementById("adminStatus").textContent = "";
+      document.getElementById("adminPanel").hidden = true;
+      document.getElementById("adminCode").value = "";
+      adminDialog.showModal();
+    });
+
+    document.getElementById("adminLogin").addEventListener("click", () => {
+      const entered = document.getElementById("adminCode").value;
+      const message = document.getElementById("adminStatus");
+      if (entered === DEMO_ADMIN_CODE) {
+        message.textContent = "کۆدەکە دروستە — ئەمە تەنها دیمۆیە.";
+        document.getElementById("adminPanel").hidden = false;
+      } else {
+        message.textContent = "کۆدەکە هەڵەیە.";
+        document.getElementById("adminPanel").hidden = true;
+      }
+    });
+
+    document.getElementById("buy").addEventListener("click", () => {
+      document.getElementById("contactStatus").textContent = "";
+      contactDialog.showModal();
+    });
+
+    document.getElementById("sendWhatsApp").addEventListener("click", () => {
+      const name = document.getElementById("customerName").value.trim();
+      const message = document.getElementById("contactStatus");
+
+      if (!name) {
+        message.textContent = "تکایە ناوت بنووسە.";
+        return;
+      }
+      if (WHATSAPP_NUMBER.includes("X")) {
+        message.textContent = "سەرەتا ژمارەی WhatsApp ـت لە کۆددا دابنێ.";
+        return;
+      }
+
+      const text = `سڵاو Akar، من ${name}م. دەمەوێت پاکێجی RTX_aka (٥,٠٠٠ دیناری عێراقی) داوا بکەم. تکایە ڕێنماییم بکە بۆ پارەدان.`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+    });
+
+    document.querySelectorAll("[data-close]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.getElementById(button.dataset.close).close();
+      });
+    });
+  </script>
+</body>
+</html>
